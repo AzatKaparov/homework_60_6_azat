@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
 from webapp.models import Project
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from webapp.forms import UserAddForm
 
 
@@ -25,5 +26,16 @@ class AddUserProject(PermissionRequiredMixin, UpdateView):
 
     def has_permission(self):
         return Project.objects.filter(user=self.request.user, pk=self.get_object().pk) and super().has_permission()
+
+
+class UserList(PermissionRequiredMixin, ListView):
+    model = User
+    template_name = "user_list.html"
+    queryset = User.objects.all()
+    context_object_name = 'users'
+    permission_required = 'accounts.view_user'
+
+    def has_permission(self):
+        return self.queryset
 
 

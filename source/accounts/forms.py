@@ -17,16 +17,8 @@ class MyUserCreationForm(UserCreationForm):
         field_classes = {'username': UsernameField}
 
     def save(self, commit=True):
-        if settings.ACTIVATE_USERS_EMAIL:
-            user: AbstractUser = super().save(commit=False)
-            user.is_active = False
-            if commit:
-                user.save()
-                token = self.create_token(user)
-                self.send_email(user, token)
-        else:
-            user = super().save(commit=commit)
-            Profile.objects.create(user=user)
+        user = super().save(commit=commit)
+        Profile.objects.create(user=user)
         return user
 
     def clean(self):
