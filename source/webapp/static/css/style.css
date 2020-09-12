@@ -30,3 +30,24 @@
 .users{
     text-transform: capitalize;
 }
+
+.person{
+    text-align: center;
+}
+
+.avatar{
+    display: inline-block;
+    width: 250px;
+    height: auto;
+}
+
+.person-text {
+    text-align: left;
+}
+
+#link {
+    background-color: dodgerblue;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+}

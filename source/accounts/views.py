@@ -1,8 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from .forms import MyUserCreationForm
 
@@ -56,3 +58,10 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = reverse('webapp:index')
         return next_url
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'
+

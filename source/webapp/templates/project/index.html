@@ -3,6 +3,8 @@
 {% block title %}Main{% endblock %}
 
 {% block content %}
+    <h1 id="center" class="my-3">Мои проекты</h1>
+    {% include 'partial/article_list.html' %}
     <h1 id="center" class="mt-5">Список проектов</h1>
 {% if is_paginated %}
     <h3 id="center">Вы сейчас на {{ page_obj.number }} странице</h3>
